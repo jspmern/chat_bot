@@ -5,6 +5,8 @@ import { chatApi } from "../api/chatApi";
 interface GetChatHistoryState {
     loading: boolean,
     data: any,
+    session_id?: string | undefined,
+    HistoryByUser: any,
     error: any
 }
 interface ChatContextType {
@@ -17,6 +19,8 @@ export const GetChatContext = createContext<ChatContextType | undefined>(
 const initialState: GetChatHistoryState = {
     loading: false,
     data: null,
+    session_id: undefined,
+    HistoryByUser: [],
     error: null
 }
 

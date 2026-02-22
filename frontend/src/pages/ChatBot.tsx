@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChatHistoryDrawer from "../component/ChatHistoryDrawer";
 import { v4 as uuidv4 } from "uuid";
 import { useRef } from "react";
+import { useHistory } from "../hook/useHistory";
 interface Message {
   id: number;
   msg: string;
@@ -25,6 +26,7 @@ const ChatBot = ({mode,setMode}:ChatBotProps) => {
    const [drawerOpen,setDrawerOpen]=useState(false)
   const {sendMessage:sendMessageApi,saveMessage}=useChat()
   const sessionIdRef = useRef(uuidv4());
+  const history=useHistory()
   const onChangeHandler=(e: React.ChangeEvent<HTMLInputElement>)=>{
     setText(e.target.value)
   }
@@ -48,13 +50,14 @@ const ChatBot = ({mode,setMode}:ChatBotProps) => {
   };
   const saveSessionToDB= async()=>
   {
+
       const payload={
-       sessionId: sessionIdRef.current,
-       user:"utsavmaithili@gmail.com",
+       sessionId:history?.state.session_id ? history.state.session_id :
+       sessionIdRef.current,
+        user:"utsavmaithili@gmail.com",
         messages: messages,
         endedAt:new Date().toISOString()
       }
-       
       saveMessage(payload)
   }
   useEffect(()=>{
@@ -66,6 +69,13 @@ const ChatBot = ({mode,setMode}:ChatBotProps) => {
       window.removeEventListener("beforeunload",handleSave)
     }
   },[messages])
+  useEffect(()=>{
+     console.log("History state updated:", history?.state
+);
+     if(history?.state?.HistoryByUser && history?.state?.HistoryByUser.length > 0) {
+      setMessages(history.state.HistoryByUser)
+     }
+  },[history?.state])
  
   return (
     <Box sx={{ display: "flex" }}>

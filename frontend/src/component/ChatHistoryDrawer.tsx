@@ -25,6 +25,9 @@ const ChatHistoryDrawer = ({ open, onClose }: ChatHistoryDrawerProps) => {
   const history = useHistory();
   const state = history?.state;
   const [localLoading, setLocalLoading] = useState(false);
+  function clickHandler(chat: ChatSession) {
+    history?.dispatch({type:"FIND_USER_HISTORY",payload:chat.sessionId})
+  }
   
   useEffect(() => {
     if (open && state?.loading) {
@@ -157,6 +160,7 @@ const ChatHistoryDrawer = ({ open, onClose }: ChatHistoryDrawerProps) => {
                       backgroundColor: "#f5f5f5",
                     },
                   }}
+                  onClick={()=>clickHandler(chat)}
                 >
                   <Box sx={{ width: "100%" }}>
                     <Typography

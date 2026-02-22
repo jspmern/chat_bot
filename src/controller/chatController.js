@@ -16,6 +16,16 @@ const chatHandleController=async(req,res)=>{
 const  saveChatSessionToDB=async(req,res)=>{
    try {
      const {sessionId,messages,endedAt,user}=req.body;
+     const findChat=await Message.findOne({sessionId:sessionId})
+     console.log("findChatxx",findChat)
+     if(findChat)
+     {
+         await newMessage.save()
+     res.status(200).json({message:"chat session saved successfully"})
+            const newMessage=await Message.findOneAndUpdate({sessionId:findChat.sessionId},{messages,endedAt},{new:true})
+            await newMessage.save()
+     res.status(200).json({message:"chat session saved successfully"}) 
+     }
      if(!sessionId || messages.length===0)return res.status(400).json({error:"sessionId and messages are required"})
          const newMessage=new Message({
              sessionId,
