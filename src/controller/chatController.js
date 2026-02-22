@@ -20,7 +20,6 @@ const  saveChatSessionToDB=async(req,res)=>{
      console.log("findChatxx",findChat)
      if(findChat)
      {
-         await newMessage.save()
      res.status(200).json({message:"chat session saved successfully"})
             const newMessage=await Message.findOneAndUpdate({sessionId:findChat.sessionId},{messages,endedAt},{new:true})
             await newMessage.save()
