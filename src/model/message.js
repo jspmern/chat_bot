@@ -13,7 +13,13 @@ const messageSchema = new mongoose.Schema({
     required: [true, 'Sender is required'],
     enum: ['user', 'bot'],
     lowercase: true
-  }
+  },
+   attachments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UploadedFile"
+    }
+  ]
 }, { _id: false });
 
 const sessionSchema=new mongoose.Schema({

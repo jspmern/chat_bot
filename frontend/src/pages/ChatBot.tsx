@@ -35,9 +35,9 @@ const ChatBot = ({mode,setMode}:ChatBotProps) => {
     setMessages((pre)=>[...pre,textObj])
     setLoading(true)
     setText('')
-   const response= await sendMessageApi(text)
+    console.log("Sending message:", messages);
+   const response= await sendMessageApi(text + messages.map(m=>m?.msg||"").join("\n \n"))
    setLoading(false)
-     
    const responseObj={id:new Date().getMilliseconds(),msg:response.message,sender:'bot'}
    setMessages((pre)=>[...pre,responseObj])
  
@@ -76,7 +76,7 @@ const ChatBot = ({mode,setMode}:ChatBotProps) => {
       setMessages(history.state.HistoryByUser)
      }
   },[history?.state])
- 
+
   return (
     <Box sx={{ display: "flex" }}>
       {/* Drawer */}
