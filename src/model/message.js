@@ -14,12 +14,18 @@ const messageSchema = new mongoose.Schema({
     enum: ['user', 'bot'],
     lowercase: true
   },
-   attachments: [
-    {
+  attachments: [
+  {
+    fileId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "UploadedFile"
+    },
+    fileUrl: {
+      type: String,
+      required: true
     }
-  ]
+  }
+]
 }, { _id: false });
 
 const sessionSchema=new mongoose.Schema({

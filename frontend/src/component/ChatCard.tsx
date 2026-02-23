@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react";
   id: number;
   msg: string;
   sender: string;
+  attachments:any
 }
 
- function ChatCard({id,msg,sender}:ChatCardProps) {
+ function ChatCard({id,msg,sender,attachments}:ChatCardProps) {
+  console.log('attachement',attachments)
   const messagesEndRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

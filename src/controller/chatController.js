@@ -17,7 +17,6 @@ const  saveChatSessionToDB=async(req,res)=>{
    try {
      const {sessionId,messages,endedAt,user}=req.body;
      const findChat=await Message.findOne({sessionId:sessionId})
-     console.log("findChatxx",findChat)
      if(findChat)
      {
      res.status(200).json({message:"chat session saved successfully"})

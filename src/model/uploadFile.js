@@ -18,11 +18,10 @@ const fileSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-      fileType: {
-    type: String,
-    enum: ["image", "pdf", "doc", "text", "other"],
-    required: true
-  },
+   fileName: {
+       type:String,
+       required:true
+    },
     mimeType: {
     type: String,
     required: true

@@ -22,5 +22,10 @@ export const chatApi={
     },
     getAllChatHistory:(user?:string)=>{
         return axiosInstance.get(`api/getAllChat?user=${user?user:"utsavmaithili@gmail.com"}`)
+    },
+    uploadFileForChat:(payload:any)=>{
+        return axiosInstance.post('/api/upload-file',payload,{headers: {
+             "Content-Type": "multipart/form-data",
+           }})
     }
 }
