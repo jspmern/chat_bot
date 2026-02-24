@@ -14,8 +14,12 @@ interface SaveMessagePayload{
 }
 
 export const chatApi={
-    sendMessage:(message:string)=>{
-       return axiosInstance.post('api/chat',{message})
+    sendMessage:(payload: {
+  sessionId: string;
+  currentMessage: string;
+  history: { role: string; content: string }[];
+})=>{
+       return axiosInstance.post('api/chat',payload)
     },
     saveMessage:(payload:SaveMessagePayload)=>{
         return axiosInstance.post('api/save',payload)

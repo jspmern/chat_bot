@@ -11,9 +11,13 @@ interface SaveMessagePayload{
     endedAt?:string
 }
 export const useChat=()=>{
-    const sendMessage=async(message:string)=>{
+const sendMessage=async(payload: {
+  sessionId: string;
+  currentMessage: string;
+  history: { role: string; content: string }[];
+})=>{
         try {
-            const response=await chatApi.sendMessage(message)
+            const response=await chatApi.sendMessage(payload)
             return response.data
         } catch (error) {
             console.error("Error sending message:", error)

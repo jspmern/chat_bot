@@ -42,9 +42,11 @@ const ChatBot = ({ mode, setMode }: ChatBotProps) => {
         attachments:
           file.length > 0
             ? file.map((item) => ({
-                fileId: item.id,
-                fileUrl: item.fileUrl,
-              }))
+              fileId: item.id,
+              fileUrl: item.fileUrl,
+              fileName: item.fileName
+
+            }))
             : [],
       };
       // Prepare message history BEFORE state update
@@ -58,7 +60,14 @@ const ChatBot = ({ mode, setMode }: ChatBotProps) => {
         .map((m) => m.msg)
         .filter(Boolean)
         .join("\n\n");
-      const response = await sendMessageApi(prompt);
+      const response = await sendMessageApi({
+        sessionId: history?.state?.session_id ?? sessionIdRef.current,
+        currentMessage: text,
+        history: messages.map((m) => ({
+          role: m.sender === "user" ? "user" : "assistant",
+          content: m.msg,
+        })),
+      });
       const botMessage = {
         id: Date.now() + 1,
         msg: response.message,

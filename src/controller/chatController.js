@@ -2,11 +2,15 @@ const Message = require("../model/message");
 const generateMsg = require("../services/llmservice");
 
 const chatHandleController=async(req,res)=>{
-    const {message}=req.body;
+    const {sessionId,currentMessage,history}=req.body
      try{
-        if(!message)return res.status(400).json({error:"message is required"})
+        if (!currentMessage)return res.status(400).json({ error: "currentMessage is required" });
         // here you can add your logic to process the message and generate a response
-        const responseMessage = await generateMsg(message);
+         const responseMessage = await generateMsg({
+      sessionId,
+      currentMessage,
+      history,
+    });
         return res.json({message:responseMessage})
      }
      catch(error){
